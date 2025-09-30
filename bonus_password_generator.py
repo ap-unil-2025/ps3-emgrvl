@@ -22,18 +22,9 @@ def generate_password(length=12, use_uppercase=True, use_lowercase=True,
     Returns:
         str: Generated password
     """
-    characters = ""
+
 
     # TODO: Build character set based on parameters
-    # if use_lowercase:
-    #     characters += string.ascii_lowercase
-    # etc.
-
-    if not characters:
-        return "Error: No character types selected!"
-
-    password = []
-
     # TODO: Ensure at least one character from each selected type
     # This prevents passwords that don't meet the criteria
 
@@ -41,6 +32,28 @@ def generate_password(length=12, use_uppercase=True, use_lowercase=True,
 
     # TODO: Shuffle the password list to randomize order
 
+    characters = ""
+    required_chars = []
+
+    if use_lowercase:
+        characters += string.ascii_lowercase
+        required_chars.append(random.choice(string.ascii_lowercase))
+    if use_uppercase:
+        characters += string.ascii_uppercase
+        required_chars.append(random.choice(string.ascii_uppercase))
+    if use_digits:
+        characters += string.digits
+        required_chars.append(random.choice(string.digits))
+    if use_special:
+        characters += string.punctuation
+        required_chars.append(random.choice(string.punctuation))
+
+    if not characters:
+        return "Error: No character types selected!"
+
+    if length < len(required_chars):
+        return ''.join(random.choice(characters) for _ in range(length))
+    password = required_chars + [random.choice(characters) for _ in range(length - len(required_chars))]
     return ''.join(password)
 
 
@@ -64,6 +77,21 @@ def password_strength(password):
     # - Contains digits: +1 point
 
     strength = ["Very Weak", "Weak", "Fair", "Good", "Strong", "Very Strong"]
+    score = 0
+    if len(password) >= 8:
+        score += 1
+    if len(password) >= 12:
+        score += 1
+
+    if any(c.islower() for c in password):
+        score += 1
+
+    if any(c.isupper() for c in password):
+        score += 1
+    
+    if any(c.isdigit() for c in password):
+        score += 1
+    #print(score)
     return strength[min(score, 5)]
 
 
