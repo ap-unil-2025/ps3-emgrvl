@@ -12,17 +12,26 @@ def get_numbers_from_user():
         list: List of numbers entered by user
     """
     numbers = []
+    n = ""
 
-    while True:
+    while n != "done":
         # TODO: Get input from user
         # TODO: Check if user typed 'done'
         # TODO: Try to convert to float and add to list
         # TODO: Handle invalid input gracefully
+
+        n = input("Enter a number:")
+        if n == "done":
+            break
+        else:
+            numbers.append(float(n))
         pass
+
+    print(numbers)
 
     return numbers
 
-
+import functools
 def analyze_numbers(numbers):
     """
     Analyze the list and return a dictionary with:
@@ -40,10 +49,6 @@ def analyze_numbers(numbers):
     Returns:
         dict: Dictionary with analysis results, or None if list is empty
     """
-    if not numbers:
-        return None
-
-    analysis = {}
 
     # TODO: Calculate count
     # TODO: Calculate sum
@@ -52,6 +57,33 @@ def analyze_numbers(numbers):
     # TODO: Find maximum
     # TODO: Count even numbers (hint: use modulo operator)
     # TODO: Count odd numbers
+    if not numbers:
+        return None
+    
+    analysis = {}
+
+    count = len(numbers)
+    analysis["Count"] = count
+
+    sum = functools.reduce(lambda x, y: x+y, numbers)
+    analysis["Sum"] = sum
+
+    average = sum/count
+    analysis["Average"] = average
+
+    minimum = min(numbers)
+    analysis["Minimum"] = minimum
+
+    maximum = max(numbers)
+    analysis["Maximum"] = maximum
+
+    list_even = [x for x in numbers if x%2 == 0]
+    even_count = len(list_even)
+    analysis["Even_count"] = even_count
+
+    list_odd = [x for x in numbers if x%2 != 0]
+    odd_count = len(list_odd)
+    analysis["Odd_count"] = odd_count
 
     return analysis
 
@@ -75,6 +107,8 @@ def display_analysis(analysis):
     # Sum: 25
     # Average: 5.00
     # etc.
+    for i in analysis:
+        print(f"{i}: {analysis[i]}")
     pass
 
 
