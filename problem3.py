@@ -63,27 +63,28 @@ def analyze_numbers(numbers):
     analysis = {}
 
     count = len(numbers)
-    analysis["Count"] = count
+    analysis["count"] = count
 
     sum = functools.reduce(lambda x, y: x+y, numbers)
-    analysis["Sum"] = sum
+    analysis["sum"] = sum
 
     average = sum/count
-    analysis["Average"] = average
+    analysis["average"] = average
 
     minimum = min(numbers)
-    analysis["Minimum"] = minimum
+    analysis["minimum"] = minimum
 
     maximum = max(numbers)
-    analysis["Maximum"] = maximum
+    analysis["maximum"] = maximum
 
     list_even = [x for x in numbers if x%2 == 0]
     even_count = len(list_even)
-    analysis["Even_count"] = even_count
+    analysis["even_count"] = even_count
 
     list_odd = [x for x in numbers if x%2 != 0]
     odd_count = len(list_odd)
-    analysis["Odd_count"] = odd_count
+    analysis["odd_count"] = odd_count
+
 
     return analysis
 
